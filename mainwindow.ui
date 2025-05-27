@@ -11,119 +11,224 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Volunteer Event Organizer</string>
+   <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <layout class="QHBoxLayout" name="horizontalLayout_2">
-    <widget class="QWidget" name="volunteerContainer">
-     <layout class="QVBoxLayout" name="volunteerLayout">
-      <widget class="QLabel" name="volunteerLabel">
-       <property name="text">
-        <string>Volunteers</string>
-       </property>
-      </widget>
-      <widget class="QListWidget" name="volunteerListWidget"/>
-      <widget class="QWidget" name="volunteerInput">
-       <layout class="QHBoxLayout" name="volunteerInputLayout">
-        <widget class="QLabel" name="volunteerIdLabel">
-         <property name="text">
-          <string>ID:</string>
-         </property>
-        </widget>
-        <widget class="QLineEdit" name="volunteerIdLineEdit"/>
-        <widget class="QLabel" name="volunteerNameLabel">
-         <property name="text">
-          <string>Name:</string>
-         </property>
-        </widget>
-        <widget class="QLineEdit" name="volunteerNameLineEdit"/>
-        <widget class="QLabel" name="volunteerContactLabel">
-         <property name="text">
-          <string>Contact:</string>
-         </property>
-        </widget>
-        <widget class="QLineEdit" name="volunteerContactLineEdit"/>
-       </layout>
-      </widget>
-      <widget class="QWidget" name="volunteerButtons">
-       <layout class="QHBoxLayout" name="volunteerButtonLayout">
-        <widget class="QPushButton" name="addVolunteerButton">
-         <property name="text">
-          <string>Add</string>
-         </property>
-        </widget>
-        <widget class="QPushButton" name="removeVolunteerButton">
-         <property name="text">
-          <string>Remove</string>
-         </property>
-        </widget>
-        <widget class="QPushButton" name="updateVolunteerButton">
-         <property name="text">
-          <string>Update</string>
-         </property>
-        </widget>
-       </layout>
-      </widget>
-     </layout>
-    </widget>
-    <widget class="QWidget" name="eventContainer">
-     <layout class="QVBoxLayout" name="eventLayout">
-      <widget class="QLabel" name="eventLabel">
-       <property name="text">
-        <string>Events</string>
-       </property>
-      </widget>
-      <widget class="QListWidget" name="eventListWidget"/>
-      <widget class="QWidget" name="eventInput">
-       <layout class="QHBoxLayout" name="eventInputLayout">
-        <widget class="QLabel" name="eventIdLabel">
-         <property name="text">
-          <string>ID:</string>
-         </property>
-        </widget>
-        <widget class="QLineEdit" name="eventIdLineEdit"/>
-        <widget class="QLabel" name="eventTitleLabel">
-         <property name="text">
-          <string>Title:</string>
-         </property>
-        </widget>
-        <widget class="QLineEdit" name="eventTitleLineEdit"/>
-        <widget class="QLabel" name="eventDateLabel">
-         <property name="text">
-          <string>Date:</string>
-         </property>
-        </widget>
-        <widget class="QLineEdit" name="eventDateLineEdit"/>
-        <widget class="QLabel" name="eventLocationLabel">
-         <property name="text">
-          <string>Location:</string>
-         </property>
-        </widget>
-        <widget class="QLineEdit" name="eventLocationLineEdit"/>
-       </layout>
-      </widget>
-      <widget class="QWidget" name="eventButtons">
-       <layout class="QHBoxLayout" name="eventButtonLayout">
-        <widget class="QPushButton" name="addEventButton">
-         <property name="text">
-          <string>Add</string>
-         </property>
-        </widget>
-        <widget class="QPushButton" name="removeEventButton">
-         <property name="text">
-          <string>Remove</string>
-         </property>
-        </widget>
-        <widget class="QPushButton" name="updateEventButton">
-         <property name="text">
-          <string>Update</string>
-         </property>
-        </widget>
-       </layout>
-      </widget>
-     </layout>
-    </widget>
-   </layout>
+   <widget class="QPushButton" name="removeEventButton">
+    <property name="geometry">
+     <rect>
+      <x>260</x>
+      <y>50</y>
+      <width>221</width>
+      <height>24</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="eventTitleLineEdit">
+    <property name="geometry">
+     <rect>
+      <x>180</x>
+      <y>260</y>
+      <width>113</width>
+      <height>22</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="updateVolunteerButton">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>120</y>
+      <width>141</width>
+      <height>24</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="volunteerNameLineEdit">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>260</y>
+      <width>113</width>
+      <height>22</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="volunteerIdLineEdit">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>230</y>
+      <width>113</width>
+      <height>22</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="redoButton">
+    <property name="geometry">
+     <rect>
+      <x>620</x>
+      <y>70</y>
+      <width>75</width>
+      <height>24</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="removeVolunteerButton">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>70</y>
+      <width>161</width>
+      <height>24</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="updateEventButton">
+    <property name="geometry">
+     <rect>
+      <x>270</x>
+      <y>90</y>
+      <width>171</width>
+      <height>24</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="eventIdLineEdit">
+    <property name="geometry">
+     <rect>
+      <x>180</x>
+      <y>230</y>
+      <width>113</width>
+      <height>22</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="addVolunteerButton">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>20</y>
+      <width>161</width>
+      <height>24</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="undoButton">
+    <property name="geometry">
+     <rect>
+      <x>620</x>
+      <y>20</y>
+      <width>75</width>
+      <height>24</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QListWidget" name="eventListWidget">
+    <property name="geometry">
+     <rect>
+      <x>170</x>
+      <y>360</y>
+      <width>256</width>
+      <height>192</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QListWidget" name="volunteerListWidget">
+    <property name="geometry">
+     <rect>
+      <x>450</x>
+      <y>220</y>
+      <width>256</width>
+      <height>192</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="eventLocationLineEdit">
+    <property name="geometry">
+     <rect>
+      <x>180</x>
+      <y>320</y>
+      <width>113</width>
+      <height>22</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="volunteerContactLineEdit">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>290</y>
+      <width>113</width>
+      <height>22</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="addEventButton">
+    <property name="geometry">
+     <rect>
+      <x>270</x>
+      <y>20</y>
+      <width>191</width>
+      <height>24</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="eventDateLineEdit">
+    <property name="geometry">
+     <rect>
+      <x>180</x>
+      <y>290</y>
+      <width>113</width>
+      <height>22</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
@@ -131,7 +236,7 @@
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>21</height>
+     <height>33</height>
     </rect>
    </property>
   </widget>

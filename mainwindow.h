@@ -8,6 +8,8 @@ QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
 
+#include "ui_mainwindow.h"
+
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
@@ -25,6 +27,8 @@ private slots:
     void updateSelectedEvent();
     void undo();
     void redo();
+    void populateVolunteerInputFields();
+    void populateEventInputFields();
 
 private:
     Ui::MainWindow *ui;

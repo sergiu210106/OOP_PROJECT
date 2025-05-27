@@ -161,3 +161,11 @@ void MainWindow::clearEventInputFields()
     ui->eventDateLineEdit->clear();
     ui->eventLocationLineEdit->clear();
 }
+
+void MainWindow::populateVolunteerInputFields() {
+
+}
+
+void MainWindow::populateEventInputFields() {
+
+}
