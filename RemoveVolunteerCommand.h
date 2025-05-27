@@ -1,0 +1,19 @@
+#ifndef REMOVEVOLUNTEERCOMMAND_H
+#define REMOVEVOLUNTEERCOMMAND_H
+
+#include "Command.h"
+#include "Volunteer.h"
+#include "BaseRepository.h"
+
+class RemoveVolunteerCommand : public Command {
+public:
+    RemoveVolunteerCommand(std::unique_ptr<BaseRepository<Volunteer>>& volunteerRepo, const Volunteer& volunteer);
+    void execute() override;
+    void undo() override;
+
+private:
+    std::unique_ptr<BaseRepository<Volunteer>>& m_volunteerRepo;
+    Volunteer m_volunteer;
+};
+
+#endif // REMOVEVOLUNTEERCOMMAND_H

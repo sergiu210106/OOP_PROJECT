@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>800</width>
+    <height>600</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Volunteer Event Organizer</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QHBoxLayout" name="horizontalLayout_2">
+    <widget class="QWidget" name="volunteerContainer">
+     <layout class="QVBoxLayout" name="volunteerLayout">
+      <widget class="QLabel" name="volunteerLabel">
+       <property name="text">
+        <string>Volunteers</string>
+       </property>
+      </widget>
+      <widget class="QListWidget" name="volunteerListWidget"/>
+      <widget class="QWidget" name="volunteerInput">
+       <layout class="QHBoxLayout" name="volunteerInputLayout">
+        <widget class="QLabel" name="volunteerIdLabel">
+         <property name="text">
+          <string>ID:</string>
+         </property>
+        </widget>
+        <widget class="QLineEdit" name="volunteerIdLineEdit"/>
+        <widget class="QLabel" name="volunteerNameLabel">
+         <property name="text">
+          <string>Name:</string>
+         </property>
+        </widget>
+        <widget class="QLineEdit" name="volunteerNameLineEdit"/>
+        <widget class="QLabel" name="volunteerContactLabel">
+         <property name="text">
+          <string>Contact:</string>
+         </property>
+        </widget>
+        <widget class="QLineEdit" name="volunteerContactLineEdit"/>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="volunteerButtons">
+       <layout class="QHBoxLayout" name="volunteerButtonLayout">
+        <widget class="QPushButton" name="addVolunteerButton">
+         <property name="text">
+          <string>Add</string>
+         </property>
+        </widget>
+        <widget class="QPushButton" name="removeVolunteerButton">
+         <property name="text">
+          <string>Remove</string>
+         </property>
+        </widget>
+        <widget class="QPushButton" name="updateVolunteerButton">
+         <property name="text">
+          <string>Update</string>
+         </property>
+        </widget>
+       </layout>
+      </widget>
+     </layout>
+    </widget>
+    <widget class="QWidget" name="eventContainer">
+     <layout class="QVBoxLayout" name="eventLayout">
+      <widget class="QLabel" name="eventLabel">
+       <property name="text">
+        <string>Events</string>
+       </property>
+      </widget>
+      <widget class="QListWidget" name="eventListWidget"/>
+      <widget class="QWidget" name="eventInput">
+       <layout class="QHBoxLayout" name="eventInputLayout">
+        <widget class="QLabel" name="eventIdLabel">
+         <property name="text">
+          <string>ID:</string>
+         </property>
+        </widget>
+        <widget class="QLineEdit" name="eventIdLineEdit"/>
+        <widget class="QLabel" name="eventTitleLabel">
+         <property name="text">
+          <string>Title:</string>
+         </property>
+        </widget>
+        <widget class="QLineEdit" name="eventTitleLineEdit"/>
+        <widget class="QLabel" name="eventDateLabel">
+         <property name="text">
+          <string>Date:</string>
+         </property>
+        </widget>
+        <widget class="QLineEdit" name="eventDateLineEdit"/>
+        <widget class="QLabel" name="eventLocationLabel">
+         <property name="text">
+          <string>Location:</string>
+         </property>
+        </widget>
+        <widget class="QLineEdit" name="eventLocationLineEdit"/>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="eventButtons">
+       <layout class="QHBoxLayout" name="eventButtonLayout">
+        <widget class="QPushButton" name="addEventButton">
+         <property name="text">
+          <string>Add</string>
+         </property>
+        </widget>
+        <widget class="QPushButton" name="removeEventButton">
+         <property name="text">
+          <string>Remove</string>
+         </property>
+        </widget>
+        <widget class="QPushButton" name="updateEventButton">
+         <property name="text">
+          <string>Update</string>
+         </property>
+        </widget>
+       </layout>
+      </widget>
+     </layout>
+    </widget>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>800</width>
+     <height>21</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
