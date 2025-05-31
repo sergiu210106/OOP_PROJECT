@@ -7,12 +7,12 @@
 
 class RemoveEventCommand : public Command {
 public:
-    RemoveEventCommand(std::unique_ptr<BaseRepository<Event>>& eventRepo, const Event& event);
+    RemoveEventCommand(BaseRepository<Event>* eventRepo, const Event& event);
     void execute() override;
     void undo() override;
 
 private:
-    std::unique_ptr<BaseRepository<Event>>& m_eventRepo;
+    BaseRepository<Event>* m_eventRepo;
     Event m_event;
 };
 

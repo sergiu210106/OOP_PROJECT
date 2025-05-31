@@ -30,6 +30,10 @@ private slots:
     void populateVolunteerInputFields();
     void populateEventInputFields();
 
+    void assignVolunteerToEvent();
+    void removeVolunteerFromEvent();
+    void updateVolunteersInEventList();
+
 private:
     Ui::MainWindow *ui;
     Controller* m_controller;

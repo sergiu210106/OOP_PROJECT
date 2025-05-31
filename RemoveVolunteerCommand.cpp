@@ -1,6 +1,6 @@
 #include "RemoveVolunteerCommand.h"
 
-RemoveVolunteerCommand::RemoveVolunteerCommand(std::unique_ptr<BaseRepository<Volunteer>>& volunteerRepo, const Volunteer& volunteer)
+RemoveVolunteerCommand::RemoveVolunteerCommand(BaseRepository<Volunteer>* volunteerRepo, const Volunteer& volunteer)
     : m_volunteerRepo(volunteerRepo), m_volunteer(volunteer) {}
 
 void RemoveVolunteerCommand::execute() {

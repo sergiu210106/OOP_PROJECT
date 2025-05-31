@@ -1,6 +1,6 @@
 #include "UpdateEventCommand.h"
 
-UpdateEventCommand::UpdateEventCommand(std::unique_ptr<BaseRepository<Event>>& eventRepo, const Event& oldEvent, const Event& newEvent)
+UpdateEventCommand::UpdateEventCommand(BaseRepository<Event>* eventRepo, const Event& oldEvent, const Event& newEvent)
     : m_eventRepo(eventRepo), m_oldEvent(oldEvent), m_newEvent(newEvent) {}
 
 void UpdateEventCommand::execute() {

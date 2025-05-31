@@ -1,6 +1,6 @@
 #include "UpdateVolunteerCommand.h"
 
-UpdateVolunteerCommand::UpdateVolunteerCommand(std::unique_ptr<BaseRepository<Volunteer>>& volunteerRepo, const Volunteer& oldVolunteer, const Volunteer& newVolunteer)
+UpdateVolunteerCommand::UpdateVolunteerCommand(BaseRepository<Volunteer>* volunteerRepo, const Volunteer& oldVolunteer, const Volunteer& newVolunteer)
     : m_volunteerRepo(volunteerRepo), m_oldVolunteer(oldVolunteer), m_newVolunteer(newVolunteer) {}
 
 void UpdateVolunteerCommand::execute() {

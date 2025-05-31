@@ -1,6 +1,6 @@
 #include "AddVolunteerCommand.h"
 
-AddVolunteerCommand::AddVolunteerCommand(std::unique_ptr<BaseRepository<Volunteer>>& volunteerRepo, const Volunteer& volunteer)
+AddVolunteerCommand::AddVolunteerCommand(BaseRepository<Volunteer>* volunteerRepo, const Volunteer& volunteer)
     : m_volunteerRepo(volunteerRepo), m_volunteer(volunteer) {}
 
 void AddVolunteerCommand::execute() {
@@ -8,5 +8,5 @@ void AddVolunteerCommand::execute() {
 }
 
 void AddVolunteerCommand::undo() {
-    m_volunteerRepo->remove(m_volunteer.getId()); // Assuming your repository can remove by ID
+    m_volunteerRepo->remove(m_volunteer.getId());
 }

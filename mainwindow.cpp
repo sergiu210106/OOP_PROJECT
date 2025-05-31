@@ -27,7 +27,9 @@ MainWindow::MainWindow(Controller* controller, QWidget *parent)
     connect(ui->updateEventButton, &QPushButton::clicked, this, &MainWindow::updateSelectedEvent);
     connect(ui->undoButton, &QPushButton::clicked, this, &MainWindow::undo);
     connect(ui->redoButton, &QPushButton::clicked, this, &MainWindow::redo);
-
+    connect(ui->assignVolunteerToEventButton, &QPushButton::clicked, this, &MainWindow::assignVolunteerToEvent);
+    connect(ui->removeVolunteerFromEventButton, &QPushButton::clicked, this, &MainWindow::removeVolunteerFromEvent);
+    connect(ui->eventListWidget, &QListWidget::itemSelectionChanged, this, &MainWindow::updateVolunteersInEventList);
     populateVolunteerList();
     populateEventList();
 }
@@ -37,18 +39,22 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::addVolunteer()
-{
+void MainWindow::addVolunteer() {
     int id = ui->volunteerIdLineEdit->text().toInt();
     QString name = ui->volunteerNameLineEdit->text();
     QString contactInfo = ui->volunteerContactLineEdit->text();
+
+    if (name.isEmpty() or contactInfo.isEmpty()) {
+        QMessageBox::warning(this, "Add Volunteer", "Please fill in all volunteer details.");
+        return;
+    }
+
     m_controller->addVolunteer(Volunteer(id, name, contactInfo));
     populateVolunteerList();
     clearVolunteerInputFields();
 }
 
-void MainWindow::removeSelectedVolunteer()
-{
+void MainWindow::removeSelectedVolunteer() {
     QListWidgetItem* selectedItem = ui->volunteerListWidget->currentItem();
     if (selectedItem) {
         int idToRemove = selectedItem->text().split(" - ").first().toInt();
@@ -59,14 +65,19 @@ void MainWindow::removeSelectedVolunteer()
     }
 }
 
-void MainWindow::updateSelectedVolunteer()
-{
+void MainWindow::updateSelectedVolunteer() {
     QListWidgetItem* selectedItem = ui->volunteerListWidget->currentItem();
     if (selectedItem) {
         int oldId = selectedItem->text().split(" - ").first().toInt();
         int newId = ui->volunteerIdLineEdit->text().toInt();
         QString newName = ui->volunteerNameLineEdit->text();
         QString newContactInfo = ui->volunteerContactLineEdit->text();
+
+        if (newName.isEmpty() || newContactInfo.isEmpty()) {
+            QMessageBox::warning(this, "Update Volunteer", "Please fill in all volunteer details.");
+            return;
+        }
+
         m_controller->updateVolunteer(oldId, Volunteer(newId, newName, newContactInfo));
         populateVolunteerList();
         clearVolunteerInputFields();
@@ -75,12 +86,17 @@ void MainWindow::updateSelectedVolunteer()
     }
 }
 
-void MainWindow::addEvent()
-{
+void MainWindow::addEvent() {
     int id = ui->eventIdLineEdit->text().toInt();
     QString title = ui->eventTitleLineEdit->text();
     QDate date = QDate::fromString(ui->eventDateLineEdit->text(), "yyyy-MM-dd");
     QString location = ui->eventLocationLineEdit->text();
+
+    if (title.isEmpty() || location.isEmpty() || !date.isValid()) {
+        QMessageBox::warning(this, "Add Event", "Please fill in all event details and ensure the date is valid (yyyy-MM-dd).");
+        return;
+    }
+
     m_controller->addEvent(Event(id, title, date, location));
     populateEventList();
     clearEventInputFields();
@@ -98,8 +114,7 @@ void MainWindow::removeSelectedEvent()
     }
 }
 
-void MainWindow::updateSelectedEvent()
-{
+void MainWindow::updateSelectedEvent() {
     QListWidgetItem* selectedItem = ui->eventListWidget->currentItem();
     if (selectedItem) {
         int oldId = selectedItem->text().split(" - ").first().toInt();
@@ -107,6 +122,12 @@ void MainWindow::updateSelectedEvent()
         QString newTitle = ui->eventTitleLineEdit->text();
         QDate newDate = QDate::fromString(ui->eventDateLineEdit->text(), "yyyy-MM-dd");
         QString newLocation = ui->eventLocationLineEdit->text();
+
+        if (newTitle.isEmpty() || newLocation.isEmpty() || !newDate.isValid()) {
+            QMessageBox::warning(this, "Update Event", "Please fill in all event details and ensure the date is valid (yyyy-MM-dd).");
+            return;
+        }
+
         m_controller->updateEvent(oldId, Event(newId, newTitle, newDate, newLocation));
         populateEventList();
         clearEventInputFields();
@@ -163,9 +184,111 @@ void MainWindow::clearEventInputFields()
 }
 
 void MainWindow::populateVolunteerInputFields() {
+    QListWidgetItem* selectedItem = ui->volunteerListWidget->currentItem();
+    if (selectedItem) {
+        QStringList parts = selectedItem->text().split(" - ");
+        if (parts.size() == 2) {
+            const int id = parts[0].toInt();
+            std::vector<Volunteer> volunteers = m_controller->getAllVolunteers();
+            for (const auto& volunteer : volunteers) {
+                if (volunteer.getId() == id) {
+                    ui->volunteerIdLineEdit->setText(QString::number(volunteer.getId()));
+                    ui->volunteerNameLineEdit->setText(volunteer.getName());
+                    ui->volunteerContactLineEdit->setText(volunteer.getContactInfo());
+                    return; // Exit after finding the volunteer
+                }
+            }
+        }
+    } else {
+        clearVolunteerInputFields();
+    }
+}
+void MainWindow::populateEventInputFields() {
+    QListWidgetItem* selectedItem = ui->eventListWidget->currentItem();
+    if (selectedItem) {
+        QStringList parts = selectedItem->text().split(" - ");
+        if (parts.size() == 2) {
+            int id = parts[0].toInt();
+            QString titleAndDate = parts[1];
+            int openParenIndex = titleAndDate.indexOf("(");
+            int closeParenIndex = titleAndDate.indexOf(")");
+            if (openParenIndex != -1 && closeParenIndex != -1) {
+                QString title = titleAndDate.left(openParenIndex).trimmed();
+                QString dateString = titleAndDate.mid(openParenIndex + 1, closeParenIndex - openParenIndex - 1);
+                QDate date = QDate::fromString(dateString, "yyyy-MM-dd");
 
+                std::vector<Event> events = m_controller->getAllEvents();
+                for (const auto& event : events) {
+                    if (event.getId() == id) {
+                        ui->eventIdLineEdit->setText(QString::number(event.getId()));
+                        ui->eventTitleLineEdit->setText(event.getTitle());
+                        ui->eventDateLineEdit->setText(event.getDate().toString("yyyy-MM-dd"));
+                        ui->eventLocationLineEdit->setText(event.getLocation());
+                        return; // Exit after finding the event
+                    }
+                }
+            }
+        }
+    } else {
+        clearEventInputFields();
+    }
 }
 
-void MainWindow::populateEventInputFields() {
+void MainWindow::assignVolunteerToEvent() {
+    QListWidgetItem* selectedVolunteerItem = ui->volunteerListWidget->currentItem();
+    QListWidgetItem* selectedEventItem = ui->eventListWidget->currentItem();
 
+    if (!selectedVolunteerItem || !selectedEventItem) {
+        QMessageBox::warning(this, "Assign Volunteer", "Please select a volunteer and an event.");
+        return;
+    }
+
+    int volunteerId = selectedVolunteerItem->text().split(" - ").first().toInt();
+    int eventId = selectedEventItem->text().split(" - ").first().toInt();
+
+    m_controller->addVolunteerToEvent(volunteerId, eventId);
+    updateVolunteersInEventList(); // Refresh the list
+}
+
+void MainWindow::removeVolunteerFromEvent() {
+    QListWidgetItem* selectedVolunteerItem = ui->volunteersInEventListWidget->currentItem();
+    QListWidgetItem* selectedEventItem = ui->eventListWidget->currentItem();
+
+    if (!selectedVolunteerItem || !selectedEventItem) {
+        QMessageBox::warning(this, "Remove Volunteer", "Please select a volunteer from the event's volunteer list.");
+        return;
+    }
+
+    if (!selectedEventItem) {
+        QMessageBox::warning(this, "Remove Volunteer", "Please select an event.");
+        return;
+    }
+
+    int volunteerId = selectedVolunteerItem->text().split(" - ").first().toInt();
+    int eventId = selectedEventItem->text().split(" - ").first().toInt();
+
+    m_controller->removeVolunteerFromEvent(volunteerId, eventId);
+    updateVolunteersInEventList(); // Refresh the list
+}
+
+void MainWindow::updateVolunteersInEventList() {
+    ui->volunteersInEventListWidget->clear();
+    QListWidgetItem* selectedEventItem = ui->eventListWidget->currentItem();
+
+    if (selectedEventItem) {
+        int eventId = selectedEventItem->text().split(" - ").first().toInt();
+        std::vector<Event> events = m_controller->getAllEvents();
+        for (const auto& event : events) {
+            if (event.getId() == eventId) {
+                QList<int> volunteerIds = event.getVolunteerIds();
+                std::vector<Volunteer> volunteers = m_controller->getAllVolunteers();
+                for (const auto& volunteer : volunteers) {
+                    if (volunteerIds.contains(volunteer.getId())) {
+                        ui->volunteersInEventListWidget->addItem(QString::number(volunteer.getId()) + " - " + volunteer.getName());
+                    }
+                }
+                break; // Event found, exit loop
+            }
+        }
+    }
 }

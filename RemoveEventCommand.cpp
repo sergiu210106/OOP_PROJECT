@@ -1,6 +1,6 @@
 #include "RemoveEventCommand.h"
 
-RemoveEventCommand::RemoveEventCommand(std::unique_ptr<BaseRepository<Event>>& eventRepo, const Event& event)
+RemoveEventCommand::RemoveEventCommand(BaseRepository<Event>* eventRepo, const Event& event)
     : m_eventRepo(eventRepo), m_event(event) {}
 
 void RemoveEventCommand::execute() {

@@ -7,12 +7,12 @@
 
 class UpdateEventCommand : public Command {
 public:
-    UpdateEventCommand(std::unique_ptr<BaseRepository<Event>>& eventRepo, const Event& oldEvent, const Event& newEvent);
+    UpdateEventCommand(BaseRepository<Event>* eventRepo, const Event& oldEvent, const Event& newEvent);
     void execute() override;
     void undo() override;
 
 private:
-    std::unique_ptr<BaseRepository<Event>>& m_eventRepo;
+    BaseRepository<Event>* m_eventRepo;
     Event m_oldEvent;
     Event m_newEvent;
 };

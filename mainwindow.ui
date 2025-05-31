@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
-    <height>600</height>
+    <width>1211</width>
+    <height>699</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,27 +17,30 @@
    <widget class="QPushButton" name="removeEventButton">
     <property name="geometry">
      <rect>
-      <x>260</x>
-      <y>50</y>
-      <width>221</width>
+      <x>410</x>
+      <y>70</y>
+      <width>201</width>
       <height>24</height>
      </rect>
     </property>
     <property name="text">
-     <string/>
+     <string>Remove Event</string>
     </property>
    </widget>
    <widget class="QLineEdit" name="eventTitleLineEdit">
     <property name="geometry">
      <rect>
-      <x>180</x>
+      <x>410</x>
       <y>260</y>
-      <width>113</width>
+      <width>181</width>
       <height>22</height>
      </rect>
     </property>
     <property name="text">
      <string/>
+    </property>
+    <property name="placeholderText">
+     <string>Edit Event Title</string>
     </property>
    </widget>
    <widget class="QPushButton" name="updateVolunteerButton">
@@ -45,12 +48,12 @@
      <rect>
       <x>20</x>
       <y>120</y>
-      <width>141</width>
+      <width>201</width>
       <height>24</height>
      </rect>
     </property>
     <property name="text">
-     <string/>
+     <string>Update Volunteer</string>
     </property>
    </widget>
    <widget class="QLineEdit" name="volunteerNameLineEdit">
@@ -58,12 +61,15 @@
      <rect>
       <x>30</x>
       <y>260</y>
-      <width>113</width>
+      <width>181</width>
       <height>22</height>
      </rect>
     </property>
     <property name="text">
      <string/>
+    </property>
+    <property name="placeholderText">
+     <string>Edit Volunteer Name</string>
     </property>
    </widget>
    <widget class="QLineEdit" name="volunteerIdLineEdit">
@@ -71,25 +77,28 @@
      <rect>
       <x>30</x>
       <y>230</y>
-      <width>113</width>
+      <width>181</width>
       <height>22</height>
      </rect>
     </property>
     <property name="text">
      <string/>
     </property>
+    <property name="placeholderText">
+     <string>Edit Volunteer Id</string>
+    </property>
    </widget>
    <widget class="QPushButton" name="redoButton">
     <property name="geometry">
      <rect>
-      <x>620</x>
-      <y>70</y>
+      <x>700</x>
+      <y>320</y>
       <width>75</width>
       <height>24</height>
      </rect>
     </property>
     <property name="text">
-     <string/>
+     <string>Redo</string>
     </property>
    </widget>
    <widget class="QPushButton" name="removeVolunteerButton">
@@ -97,97 +106,103 @@
      <rect>
       <x>20</x>
       <y>70</y>
-      <width>161</width>
+      <width>201</width>
       <height>24</height>
      </rect>
     </property>
     <property name="text">
-     <string/>
+     <string>Remove Volunteer</string>
     </property>
    </widget>
    <widget class="QPushButton" name="updateEventButton">
     <property name="geometry">
      <rect>
-      <x>270</x>
-      <y>90</y>
-      <width>171</width>
+      <x>410</x>
+      <y>120</y>
+      <width>201</width>
       <height>24</height>
      </rect>
     </property>
     <property name="text">
-     <string/>
+     <string>Update Event</string>
     </property>
    </widget>
    <widget class="QLineEdit" name="eventIdLineEdit">
     <property name="geometry">
      <rect>
-      <x>180</x>
+      <x>410</x>
       <y>230</y>
-      <width>113</width>
+      <width>181</width>
       <height>22</height>
      </rect>
     </property>
     <property name="text">
      <string/>
     </property>
+    <property name="placeholderText">
+     <string>Edit Event Id</string>
+    </property>
    </widget>
    <widget class="QPushButton" name="addVolunteerButton">
     <property name="geometry">
      <rect>
-      <x>10</x>
+      <x>20</x>
       <y>20</y>
-      <width>161</width>
+      <width>201</width>
       <height>24</height>
      </rect>
     </property>
     <property name="text">
-     <string/>
+     <string>Add Volunteer</string>
     </property>
    </widget>
    <widget class="QPushButton" name="undoButton">
     <property name="geometry">
      <rect>
-      <x>620</x>
-      <y>20</y>
+      <x>700</x>
+      <y>290</y>
       <width>75</width>
       <height>24</height>
      </rect>
     </property>
     <property name="text">
-     <string/>
+     <string>Undo</string>
     </property>
    </widget>
    <widget class="QListWidget" name="eventListWidget">
     <property name="geometry">
      <rect>
-      <x>170</x>
+      <x>20</x>
       <y>360</y>
-      <width>256</width>
-      <height>192</height>
+      <width>371</width>
+      <height>271</height>
      </rect>
     </property>
    </widget>
    <widget class="QListWidget" name="volunteerListWidget">
     <property name="geometry">
      <rect>
-      <x>450</x>
-      <y>220</y>
-      <width>256</width>
-      <height>192</height>
+      <x>410</x>
+      <y>360</y>
+      <width>371</width>
+      <height>271</height>
      </rect>
     </property>
    </widget>
    <widget class="QLineEdit" name="eventLocationLineEdit">
     <property name="geometry">
      <rect>
-      <x>180</x>
+      <x>410</x>
       <y>320</y>
-      <width>113</width>
+      <width>181</width>
       <height>22</height>
      </rect>
     </property>
     <property name="text">
      <string/>
+    </property>
+    <property name="placeholderText">
+     <string>Edit Event Location</string>
     </property>
    </widget>
    <widget class="QLineEdit" name="volunteerContactLineEdit">
@@ -195,38 +210,93 @@
      <rect>
       <x>30</x>
       <y>290</y>
-      <width>113</width>
+      <width>181</width>
       <height>22</height>
      </rect>
     </property>
     <property name="text">
      <string/>
+    </property>
+    <property name="placeholderText">
+     <string>Edit Volunteer Contact</string>
     </property>
    </widget>
    <widget class="QPushButton" name="addEventButton">
     <property name="geometry">
      <rect>
-      <x>270</x>
+      <x>410</x>
       <y>20</y>
-      <width>191</width>
+      <width>201</width>
       <height>24</height>
      </rect>
     </property>
     <property name="text">
-     <string/>
+     <string>Add Event</string>
     </property>
    </widget>
    <widget class="QLineEdit" name="eventDateLineEdit">
     <property name="geometry">
      <rect>
-      <x>180</x>
+      <x>410</x>
       <y>290</y>
-      <width>113</width>
+      <width>181</width>
       <height>22</height>
      </rect>
     </property>
     <property name="text">
      <string/>
+    </property>
+    <property name="placeholderText">
+     <string>Edit Event Date</string>
+    </property>
+   </widget>
+   <widget class="QListWidget" name="volunteersInEventListWidget">
+    <property name="geometry">
+     <rect>
+      <x>800</x>
+      <y>360</y>
+      <width>381</width>
+      <height>271</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>800</x>
+      <y>340</y>
+      <width>231</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Volunteers in selected Event</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="assignVolunteerToEventButton">
+    <property name="geometry">
+     <rect>
+      <x>800</x>
+      <y>250</y>
+      <width>381</width>
+      <height>24</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Assign Volunteer To Event</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="removeVolunteerFromEventButton">
+    <property name="geometry">
+     <rect>
+      <x>800</x>
+      <y>290</y>
+      <width>381</width>
+      <height>24</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Remove Volunteer From Event</string>
     </property>
    </widget>
   </widget>
@@ -235,7 +305,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>800</width>
+     <width>1211</width>
      <height>33</height>
     </rect>
    </property>

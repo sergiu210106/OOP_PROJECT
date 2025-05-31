@@ -90,7 +90,6 @@ void JSONEventRepository::save() const {
     qDebug() << "Saved" << m_events.size() << "events to" << m_filename;
 }
 
-// Adds a new event to the repository and saves changes
 void JSONEventRepository::add(const Event& event) {
     for (const auto& e : m_events) {
         if (e.getId() == event.getId()) {
@@ -103,7 +102,6 @@ void JSONEventRepository::add(const Event& event) {
     qDebug() << "Event added:" << event.getTitle();
 }
 
-// Removes an event by ID from the repository and saves changes
 void JSONEventRepository::remove(int id) {
     auto it = std::remove_if(m_events.begin(), m_events.end(),
                              [id](const Event& e) { return e.getId() == id; });
@@ -116,14 +114,12 @@ void JSONEventRepository::remove(int id) {
     }
 }
 
-// Updates an existing event in the repository and saves changes
 void JSONEventRepository::update(const Event& event) {
     for (auto& e : m_events) {
         if (e.getId() == event.getId()) {
             e.setTitle(event.getTitle());
             e.setDate(event.getDate());
             e.setLocation(event.getLocation());
-            // Assuming Event::addVolunteer/removeVolunteer are used for volunteer IDs
             save();
             qDebug() << "Event with ID" << event.getId() << "updated.";
             return;
@@ -132,7 +128,6 @@ void JSONEventRepository::update(const Event& event) {
     qWarning() << "Event with ID" << event.getId() << "not found for update.";
 }
 
-// Retrieves all events from the repository
 std::vector<Event> JSONEventRepository::getAll() const {
     return m_events;
 }

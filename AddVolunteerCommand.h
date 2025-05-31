@@ -7,12 +7,12 @@
 
 class AddVolunteerCommand : public Command {
 public:
-    AddVolunteerCommand(std::unique_ptr<BaseRepository<Volunteer>>& volunteerRepo, const Volunteer& volunteer);
+    AddVolunteerCommand(BaseRepository<Volunteer>* volunteerRepo, const Volunteer& volunteer);
     void execute() override;
     void undo() override;
 
 private:
-    std::unique_ptr<BaseRepository<Volunteer>>& m_volunteerRepo;
+    BaseRepository<Volunteer>* m_volunteerRepo;
     Volunteer m_volunteer;
 };
 

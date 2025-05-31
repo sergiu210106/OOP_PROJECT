@@ -26,6 +26,7 @@ add_executable(finalProjectOOP
         JSONEventRepository.cpp
         JSONVolunteerRepository.cpp
         RemoveEventCommand.cpp
+        RemoveVolunteerCommand.cpp
         UpdateEventCommand.cpp
         UpdateVolunteerCommand.cpp
         Volunteer.cpp

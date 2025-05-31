@@ -1,6 +1,6 @@
 #include "AddEventCommand.h"
 
-AddEventCommand::AddEventCommand(std::unique_ptr<BaseRepository<Event>>& eventRepo, const Event& event)
+AddEventCommand::AddEventCommand(BaseRepository<Event>* eventRepo, const Event& event)
     : m_eventRepo(eventRepo), m_event(event) {}
 
 void AddEventCommand::execute() {

@@ -7,12 +7,12 @@
 
 class UpdateVolunteerCommand : public Command {
 public:
-    UpdateVolunteerCommand(std::unique_ptr<BaseRepository<Volunteer>>& volunteerRepo, const Volunteer& oldVolunteer, const Volunteer& newVolunteer);
+    UpdateVolunteerCommand(BaseRepository<Volunteer>* volunteerRepo, const Volunteer& oldVolunteer, const Volunteer& newVolunteer);
     void execute() override;
     void undo() override;
 
 private:
-    std::unique_ptr<BaseRepository<Volunteer>>& m_volunteerRepo;
+    BaseRepository<Volunteer>* m_volunteerRepo;
     Volunteer m_oldVolunteer;
     Volunteer m_newVolunteer;
 };
