@@ -8,16 +8,18 @@ set(CMAKE_AUTOUIC ON)
 
 set(CMAKE_PREFIX_PATH "C:/Qt/6.9.0/mingw_64") # Make sure this is the correct path to your Qt installation
 
+enable_testing()
+
 find_package(Qt6 COMPONENTS
         Core
         Gui
         Widgets
+        Test
         REQUIRED
 )
 
-add_executable(finalProjectOOP
-        main.cpp
-        mainwindow.cpp
+# Create a library with all the core classes (excluding main.cpp and mainwindow.cpp)
+add_library(volunteer_core
         Controller.cpp
         AddEventCommand.cpp
         AddVolunteerCommand.cpp
@@ -33,10 +35,40 @@ add_executable(finalProjectOOP
         Event.cpp
 )
 
+target_link_libraries(volunteer_core
+        Qt::Core
+)
+
+# Main application executable
+add_executable(finalProjectOOP
+        main.cpp
+        mainwindow.cpp
+)
+
 target_link_libraries(finalProjectOOP
+        volunteer_core
         Qt::Core
         Qt::Gui
         Qt::Widgets
+)
+
+# Test executable
+add_executable(volunteer_tests
+        tests.cpp
+)
+
+target_link_libraries(volunteer_tests
+        volunteer_core
+        Qt::Core
+        Qt::Test
+)
+
+# Add the test to CTest
+add_test(NAME VolunteerManagementTests COMMAND volunteer_tests)
+
+# Set working directory for tests (so temporary files are created in a predictable location)
+set_tests_properties(VolunteerManagementTests PROPERTIES
+        WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
 )
 
 # Deployment (Windows - MinGW)
@@ -57,11 +89,15 @@ if (WIN32 AND NOT DEFINED CMAKE_TOOLCHAIN_FILE)
                 "$<TARGET_FILE_DIR:finalProjectOOP>/plugins/platforms/")
     endif()
 
-    foreach(QT_LIB Core Gui Widgets)
+    foreach(QT_LIB Core Gui Widgets Test)
         if (EXISTS "${QT_INSTALL_PATH}/bin/Qt6${QT_LIB}.dll")
             add_custom_command(TARGET finalProjectOOP POST_BUILD
                     COMMAND ${CMAKE_COMMAND} -E copy "${QT_INSTALL_PATH}/bin/Qt6${QT_LIB}.dll"
                     "$<TARGET_FILE_DIR:finalProjectOOP>")
+            # Also copy DLLs for test executable
+            add_custom_command(TARGET volunteer_tests POST_BUILD
+                    COMMAND ${CMAKE_COMMAND} -E copy "${QT_INSTALL_PATH}/bin/Qt6${QT_LIB}.dll"
+                    "$<TARGET_FILE_DIR:volunteer_tests>")
         endif()
     endforeach()
 endif()

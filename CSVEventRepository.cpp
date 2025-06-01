@@ -98,11 +98,7 @@ void CSVEventRepository::remove(int id) {
 void CSVEventRepository::update(const Event& event) {
     for (auto& e : m_events) {
         if (e.getId() == event.getId()) {
-            e.setTitle(event.getTitle());
-            e.setDate(event.getDate());
-            e.setLocation(event.getLocation());
-            // Assuming Event::addVolunteer/removeVolunteer are used for volunteer IDs
-            // If you need to replace the entire list of volunteer IDs, you'd need a setter in Event.h
+            e = event;
             save(); // Persist changes to file
             qDebug() << "Event with ID" << event.getId() << "updated.";
             return;

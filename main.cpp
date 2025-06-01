@@ -8,6 +8,7 @@
 #include "CSVVolunteerRepository.h"
 #include "CSVEventRepository.h"
 #include "mainwindow.h" // Include your MainWindow header
+#include <QDir>
 
 int main(int argc, char *argv[]) {
     // Initialize QApplication for GUI applications
@@ -41,6 +42,8 @@ int main(int argc, char *argv[]) {
     mainWindow.show();
 
     qDebug() << "MainWindow shown. Starting event loop...";
+
+
 
     // Start the Qt event loop. This is essential for GUI applications.
     return a.exec();

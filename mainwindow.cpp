@@ -30,6 +30,10 @@ MainWindow::MainWindow(Controller* controller, QWidget *parent)
     connect(ui->assignVolunteerToEventButton, &QPushButton::clicked, this, &MainWindow::assignVolunteerToEvent);
     connect(ui->removeVolunteerFromEventButton, &QPushButton::clicked, this, &MainWindow::removeVolunteerFromEvent);
     connect(ui->eventListWidget, &QListWidget::itemSelectionChanged, this, &MainWindow::updateVolunteersInEventList);
+
+    connect(ui->filterEventsByDateButton, &QPushButton::clicked, this, &MainWindow::filterEventsByDate);
+    connect(ui->filterEventsByLocationButton, &QPushButton::clicked, this, &MainWindow::filterEventsByLocation);
+
     populateVolunteerList();
     populateEventList();
 }
@@ -291,4 +295,43 @@ void MainWindow::updateVolunteersInEventList() {
             }
         }
     }
+}
+
+void MainWindow::filterEventsByDate() {
+    QString dateFilter = ui->eventDateFilterLineEdit->text();
+    qDebug() << "filterEventsByDate: dateFilter =" << dateFilter;
+    QDate filterDate = QDate::fromString(dateFilter, "yyyy-MM-dd");
+    qDebug() << "filterEventsByDate: filterDate =" << filterDate;
+
+    if (!filterDate.isValid() && !dateFilter.isEmpty()) {
+        QMessageBox::warning(this, "Invalid Date", "Please enter the date in yyyy-MM-dd format.");
+        return;
+    }
+
+    std::vector<Event> filteredEvents = m_controller->filterEventsByDate(dateFilter);
+    qDebug() << "filterEventsByDate: filteredEvents.size() =" << filteredEvents.size();
+
+    ui->eventListWidget->clear();
+    int i = 0; // Add an index counter
+    for (const auto& event : filteredEvents) {
+        qDebug() << "  Event " << i++ << ": id=" << event.getId() << ", title=" << event.getTitle(); // Detailed event info
+        ui->eventListWidget->addItem(QString::number(event.getId()) + " - " + event.getTitle() + " (" + event.getDate().toString("yyyy-MM-dd") + ")");
+    }
+    qDebug() << "filterEventsByDate:  Finished loop"; // Add a final log
+}
+
+void MainWindow::filterEventsByLocation() {
+    QString locationFilter = ui->eventLocationFilterLineEdit->text();
+    qDebug() << "filterEventsByLocation: locationFilter =" << locationFilter; // ADDED
+
+    std::vector<Event> filteredEvents = m_controller->filterEventsByLocation(locationFilter);
+    qDebug() << "filterEventsByLocation: filteredEvents.size() =" << filteredEvents.size(); // ADDED
+
+    ui->eventListWidget->clear();
+    int i = 0; // Add an index counter
+    for (const auto& event : filteredEvents) {
+        qDebug() << "  Event " << i++ << ": id=" << event.getId() << ", title=" << event.getTitle() << ", location=" << event.getLocation(); // Detailed event info
+        ui->eventListWidget->addItem(QString::number(event.getId()) + " - " + event.getTitle() + " (" + event.getDate().toString("yyyy-MM-dd") + " - " + event.getLocation() + ")");
+    }
+    qDebug() << "filterEventsByLocation: Finished loop"; // Add a final log
 }

@@ -20,6 +20,7 @@ Controller::Controller(std::unique_ptr<BaseRepository<Volunteer>> volunteerRepo,
     if (!m_eventRepo) {
         qWarning() << "Event Repository not available.";
     }
+
 }
 
 Controller::~Controller() {
@@ -256,4 +257,52 @@ void Controller::redo() {
     } else {
         qDebug() << "Redo Stack is empty.";
     }
+}
+
+std::vector<Event> Controller::filterEventsByDate(const QString& dateFilter) const {
+    qDebug() << "Controller::filterEventsByDate: dateFilter =" << dateFilter;
+    std::vector<Event> filteredList;
+    qDebug() << "Controller::filterEventsByDate: m_eventRepo =" << (m_eventRepo != nullptr); // Check repo validity
+
+    if (!m_eventRepo) {
+        qWarning() << "Controller::filterEventsByDate: m_eventRepo is null! Returning empty list.";
+        return filteredList; // Return early if repo is invalid
+    }
+
+    std::vector<Event> allEvents = m_eventRepo->getAll(); // Store the result
+    qDebug() << "Controller::filterEventsByDate: allEvents.size() =" << allEvents.size();
+
+    std::copy_if(allEvents.begin(), allEvents.end(),
+                  std::back_inserter(filteredList),
+                  [&](const Event& event) {
+                      bool match = dateFilter.isEmpty() || event.getDate().toString("yyyy-MM-dd") == dateFilter;
+                      qDebug() << "  Checking event: " << event.getId() << ", date=" << event.getDate().toString("yyyy-MM-dd") << ", match=" << match;
+                      return match;
+                  });
+    qDebug() << "Controller::filterEventsByDate: filteredList.size() =" << filteredList.size();
+    return filteredList;
+}
+
+std::vector<Event> Controller::filterEventsByLocation(const QString& locationFilter) const {
+    qDebug() << "Controller::filterEventsByLocation: locationFilter =" << locationFilter; // ADDED
+    std::vector<Event> filteredList;
+    qDebug() << "Controller::filterEventsByLocation: m_eventRepo =" << (m_eventRepo != nullptr); // Check repo validity
+
+    if (!m_eventRepo) {
+        qWarning() << "Controller::filterEventsByLocation: m_eventRepo is null! Returning empty list.";
+        return filteredList; // Return early if repo is invalid
+    }
+
+    std::vector<Event> allEvents = m_eventRepo->getAll(); // Store the result
+    qDebug() << "Controller::filterEventsByLocation: allEvents.size() =" << allEvents.size(); // ADDED
+
+    std::copy_if(allEvents.begin(), allEvents.end(),
+                  std::back_inserter(filteredList),
+                  [&](const Event& event) {
+                      bool match = locationFilter.isEmpty() || event.getLocation().contains(locationFilter, Qt::CaseInsensitive);
+                      qDebug() << "  Checking event: " << event.getId() << ", location=" << event.getLocation() << ", match=" << match; // ADDED
+                      return match;
+                  });
+    qDebug() << "Controller::filterEventsByLocation: filteredList.size() =" << filteredList.size(); // ADDED
+    return filteredList;
 }

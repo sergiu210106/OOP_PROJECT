@@ -34,6 +34,9 @@ private slots:
     void removeVolunteerFromEvent();
     void updateVolunteersInEventList();
 
+    void filterEventsByDate();
+    void filterEventsByLocation();
+
 private:
     Ui::MainWindow *ui;
     Controller* m_controller;

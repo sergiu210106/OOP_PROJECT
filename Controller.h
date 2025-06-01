@@ -32,6 +32,8 @@ public:
     void undo();
     void redo();
 
+    std::vector<Event> filterEventsByDate(const QString& dateFilter) const;
+    std::vector<Event> filterEventsByLocation(const QString& locationFilter) const;
 private:
     std::unique_ptr<BaseRepository<Volunteer>> m_volunteerRepo;
     std::unique_ptr<BaseRepository<Event>> m_eventRepo;
