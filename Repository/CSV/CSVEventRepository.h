@@ -1,8 +1,8 @@
 #ifndef CSVEVENTREPOSITORY_H
 #define CSVEVENTREPOSITORY_H
 
-#include "BaseRepository.h" // Inherit from the generic BaseRepository
-#include "Event.h"          // Include the specific type
+#include "../BaseRepository.h" // Inherit from the generic BaseRepository
+#include "../../Model/Event.h"          // Include the specific type
 #include <QFile>
 #include <QTextStream>
 #include <QStringList>

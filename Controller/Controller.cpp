@@ -3,13 +3,13 @@
 #include <QDebug>
 #include <algorithm>
 
-#include "AddVolunteerCommand.h"
-#include "RemoveVolunteerCommand.h"
-#include "UpdateVolunteerCommand.h"
-#include "AddEventCommand.h"
-#include "RemoveEventCommand.h"
-#include "UpdateEventCommand.h"
+#include "../core/Command/AddVolunteerCommand.h"
+#include "../core/Command/RemoveVolunteerCommand.h"
+#include "../core/Command/UpdateVolunteerCommand.h"
 
+#include "../core/Command/AddEventCommand.h"
+#include "../core/Command/RemoveEventCommand.h"
+#include "../core/Command/UpdateEventCommand.h"
 
 Controller::Controller(std::unique_ptr<BaseRepository<Volunteer>> volunteerRepo,
                        std::unique_ptr<BaseRepository<Event>> eventRepo)

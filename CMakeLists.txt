@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.20) # You can use 3.20 or a more recent version
+cmake_minimum_required(VERSION 3.20)
 project(finalProjectOOP)
 
 set(CMAKE_CXX_STANDARD 20)
@@ -6,7 +6,7 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 set(CMAKE_AUTOUIC ON)
 
-set(CMAKE_PREFIX_PATH "C:/Qt/6.9.0/mingw_64") # Make sure this is the correct path to your Qt installation
+set(CMAKE_PREFIX_PATH "C:/Qt/6.9.0/mingw_64") # Make sure this is correct
 
 enable_testing()
 
@@ -18,21 +18,21 @@ find_package(Qt6 COMPONENTS
         REQUIRED
 )
 
-# Create a library with all the core classes (excluding main.cpp and mainwindow.cpp)
+# Create a library with all the core classes
 add_library(volunteer_core
-        Controller.cpp
-        AddEventCommand.cpp
-        AddVolunteerCommand.cpp
-        CSVEventRepository.cpp
-        CSVVolunteerRepository.cpp
-        JSONEventRepository.cpp
-        JSONVolunteerRepository.cpp
-        RemoveEventCommand.cpp
-        RemoveVolunteerCommand.cpp
-        UpdateEventCommand.cpp
-        UpdateVolunteerCommand.cpp
-        Volunteer.cpp
-        Event.cpp
+        Controller/Controller.cpp
+        core/Command/AddEventCommand.cpp
+        core/Command/AddVolunteerCommand.cpp
+        Repository/CSV/CSVEventRepository.cpp
+        Repository/CSV/CSVVolunteerRepository.cpp
+        Repository/JSON/JSONEventRepository.cpp
+        Repository/JSON/JSONVolunteerRepository.cpp
+        core/Command/RemoveEventCommand.cpp
+        core/Command/RemoveVolunteerCommand.cpp
+        core/Command/UpdateEventCommand.cpp
+        core/Command/UpdateVolunteerCommand.cpp
+        Model/Volunteer.cpp
+        Model/Event.cpp
 )
 
 target_link_libraries(volunteer_core
@@ -41,8 +41,8 @@ target_link_libraries(volunteer_core
 
 # Main application executable
 add_executable(finalProjectOOP
-        main.cpp
-        mainwindow.cpp
+        ui/main.cpp
+        ui/mainwindow.cpp
 )
 
 target_link_libraries(finalProjectOOP
@@ -54,7 +54,7 @@ target_link_libraries(finalProjectOOP
 
 # Test executable
 add_executable(volunteer_tests
-        tests.cpp
+        tests/tests.cpp
 )
 
 target_link_libraries(volunteer_tests
@@ -66,9 +66,9 @@ target_link_libraries(volunteer_tests
 # Add the test to CTest
 add_test(NAME VolunteerManagementTests COMMAND volunteer_tests)
 
-# Set working directory for tests (so temporary files are created in a predictable location)
+# Set working directory for tests
 set_tests_properties(VolunteerManagementTests PROPERTIES
-        WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
+        WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
 )
 
 # Deployment (Windows - MinGW)

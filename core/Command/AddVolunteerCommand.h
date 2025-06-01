@@ -2,8 +2,8 @@
 #define ADDVOLUNTEERCOMMAND_H
 
 #include "Command.h"
-#include "Volunteer.h"
-#include "BaseRepository.h" // Assuming your Controller uses this
+#include "../../Model/Volunteer.h"
+#include "../../Repository/BaseRepository.h" // Assuming your Controller uses this
 
 class AddVolunteerCommand : public Command {
 public:

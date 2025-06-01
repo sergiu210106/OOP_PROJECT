@@ -2,8 +2,8 @@
 #define REMOVEVOLUNTEERCOMMAND_H
 
 #include "Command.h"
-#include "Volunteer.h"
-#include "BaseRepository.h"
+#include "../../Model/Volunteer.h"
+#include "../../Repository/BaseRepository.h"
 
 class RemoveVolunteerCommand : public Command {
 public:

@@ -1,8 +1,8 @@
 #ifndef CSVVOLUNTEERREPOSITORY_H
 #define CSVVOLUNTEERREPOSITORY_H
 
-#include "BaseRepository.h" // Inherit from the generic BaseRepository
-#include "Volunteer.h"      // Include the specific type
+#include "../BaseRepository.h" // Inherit from the generic BaseRepository
+#include "../../Model/Volunteer.h"      // Include the specific type
 #include <QFile>
 #include <QTextStream>
 #include <QStringList>

@@ -1,8 +1,8 @@
 #ifndef JSONVOLUNTEERREPOSITORY_H
 #define JSONVOLUNTEERREPOSITORY_H
 
-#include "BaseRepository.h"
-#include "Volunteer.h"
+#include "../BaseRepository.h"
+#include "../../Model/Volunteer.h"
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QJsonArray>

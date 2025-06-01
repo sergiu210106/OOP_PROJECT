@@ -1,8 +1,8 @@
 #ifndef JSONEVENTREPOSITORY_H
 #define JSONEVENTREPOSITORY_H
 
-#include "BaseRepository.h"
-#include "Event.h"
+#include "../BaseRepository.h"
+#include "../../Model/Event.h"
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QJsonArray>

@@ -2,8 +2,8 @@
 #define ADDEVENTCOMMAND_H
 
 #include "Command.h"
-#include "Event.h"
-#include "BaseRepository.h"
+#include "../../Model/Event.h"
+#include "../../Repository/BaseRepository.h"
 
 class AddEventCommand : public Command {
 public:

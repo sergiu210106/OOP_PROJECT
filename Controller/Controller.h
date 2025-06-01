@@ -5,10 +5,10 @@
 #include <vector>
 #include <memory>
 #include <stack>
-#include "Volunteer.h"
-#include "Event.h"
-#include "BaseRepository.h" // Include the BaseRepository header
-#include "Command.h"       // Include the Command interface
+#include "../Model/Volunteer.h"
+#include "../Model/Event.h"
+#include "../Repository/BaseRepository.h" // Include the BaseRepository header
+#include "../core/Command/Command.h"       // Include the Command interface
 
 class Controller {
 public:

@@ -4,9 +4,11 @@
 #include <QDate>  // For QDate
 
 // Project specific headers
-#include "Controller.h"
-#include "CSVVolunteerRepository.h"
-#include "CSVEventRepository.h"
+#include "../Controller/Controller.h"
+#include "../Repository/CSV/CSVVolunteerRepository.h"
+#include "../Repository/CSV/CSVEventRepository.h"
+#include "../Repository/JSON/JSONVolunteerRepository.h"
+#include "../Repository/JSON/JSONEventRepository.h"
 #include "mainwindow.h" // Include your MainWindow header
 #include <QDir>
 

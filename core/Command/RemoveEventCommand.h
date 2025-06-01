@@ -2,8 +2,8 @@
 #define REMOVEEVENTCOMMAND_H
 
 #include "Command.h"
-#include "Event.h"
-#include "BaseRepository.h"
+#include "../../Model/Event.h"
+#include "../../Repository/BaseRepository.h"
 
 class RemoveEventCommand : public Command {
 public:
