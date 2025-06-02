@@ -122,7 +122,6 @@ void Controller::addEvent(const Event& event) {
 
 void Controller::removeEvent(int id) {
     if (m_eventRepo) {
-        // Fetch the event BEFORE removing! (for undo)
         std::vector<Event> allEvents = m_eventRepo->getAll();
         auto it = std::find_if(allEvents.begin(), allEvents.end(), [id](const Event& e) { return e.getId() == id; });
         if (it != allEvents.end()) {
@@ -146,7 +145,6 @@ void Controller::removeEvent(int id) {
 
 void Controller::updateEvent(int oldId, const Event& newEvent) {
     if (m_eventRepo) {
-        // Fetch the old event BEFORE updating! (for undo)
         std::vector<Event> allEvents = m_eventRepo->getAll();
         auto it = std::find_if(allEvents.begin(), allEvents.end(), [oldId](const Event& e) { return e.getId() == oldId; });
         if (it != allEvents.end()) {

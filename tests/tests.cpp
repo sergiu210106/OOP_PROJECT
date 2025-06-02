@@ -7,11 +7,11 @@
 #include <algorithm>
 
 // Include your project headers
-#include "Volunteer.h"
-#include "Event.h"
-#include "CSVVolunteerRepository.h"
-#include "CSVEventRepository.h"
-#include "Controller.h"
+#include "../Model/Volunteer.h"
+#include "../Model/Event.h"
+#include "../Repository/CSV/CSVVolunteerRepository.h"
+#include "../Repository/CSV/CSVEventRepository.h"
+#include "../Controller/Controller.h"
 
 class TestVolunteerManagement : public QObject
 {
