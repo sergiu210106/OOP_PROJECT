@@ -1,105 +1,76 @@
 #include "JSONEventRepository.h"
 
-// Constructor: Initializes filename and loads data
 JSONEventRepository::JSONEventRepository(const QString& filename)
     : m_filename(filename) {
     load();
 }
 
-// Loads event data from the JSON file into memory
 void JSONEventRepository::load() {
-    m_events.clear(); // Clear existing data before loading
+    m_events.clear();
     QFile file(m_filename);
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
-        qWarning() << "Could not open event JSON file for reading:" << m_filename;
+        qWarning() << "Could not open event file for reading:" << m_filename;
         return;
     }
 
-    QByteArray jsonData = file.readAll();
-    file.close();
-
-    QJsonParseError parseError;
-    QJsonDocument doc = QJsonDocument::fromJson(jsonData, &parseError);
-
-    if (parseError.error != QJsonParseError::NoError) {
-        qWarning() << "Failed to parse event JSON:" << parseError.errorString();
-        return;
-    }
-
-    if (!doc.isArray()) {
-        qWarning() << "Event JSON is not an array.";
-        return;
-    }
-
-    QJsonArray jsonArray = doc.array();
-    for (const QJsonValue& value : jsonArray) {
-        if (value.isObject()) {
-            QJsonObject obj = value.toObject();
-            int id = obj["id"].toInt();
-            QString title = obj["title"].toString();
-            QDate date = QDate::fromString(obj["date"].toString(), Qt::ISODate); // Assuming ISO date format
-            QString location = obj["location"].toString();
+    QTextStream in(&file);
+    while (!in.atEnd()) {
+        QString line = in.readLine();
+        QStringList parts = line.split(',');
+        if (parts.size() >= 4) {
+            int id = parts[0].toInt();
+            QString title = parts[1];
+            QDate date = QDate::fromString(parts[2], Qt::ISODate);
+            QString location = parts[3];
 
             Event e(id, title, date, location);
-            // Load associated volunteer IDs
-            if (obj.contains("volunteerIds") && obj["volunteerIds"].isArray()) {
-                QJsonArray volunteerIdsArray = obj["volunteerIds"].toArray();
-                for (const QJsonValue& vIdValue : volunteerIdsArray) {
-                    if (vIdValue.isDouble()) { // JSON numbers are doubles
-                        e.addVolunteer(vIdValue.toInt());
-                    } else {
-                        qWarning() << "Invalid volunteer ID type in event JSON array.";
-                    }
+            for (int i = 4; i < parts.size(); ++i) {
+                bool ok;
+                int volunteerId = parts[i].toInt(&ok);
+                if (ok) {
+                    e.addVolunteer(volunteerId);
+                } else {
+                    qWarning() << "Invalid volunteer ID in event data:" << parts[i];
                 }
             }
             m_events.push_back(e);
         } else {
-            qWarning() << "Skipping non-object value in event JSON array.";
+            qWarning() << "Skipping malformed line in event data:" << line;
         }
     }
-    qDebug() << "Loaded" << m_events.size() << "events from" << m_filename;
+    file.close();
+    qDebug() << "Loaded " << m_events.size() << " events from " << m_filename;
 }
 
-// Saves current event data from memory to the JSON file
 void JSONEventRepository::save() const {
     QFile file(m_filename);
     if (!file.open(QIODevice::WriteOnly | QIODevice::Text | QIODevice::Truncate)) {
-        qWarning() << "Could not open event JSON file for writing:" << m_filename;
+        qWarning() << "Could not open event file for writing:" << m_filename;
         return;
     }
 
-    QJsonArray jsonArray;
+    QTextStream out(&file);
     for (const auto& e : m_events) {
-        QJsonObject obj;
-        obj["id"] = e.getId();
-        obj["title"] = e.getTitle();
-        obj["date"] = e.getDate().toString(Qt::ISODate); // Save date in ISO format
-        obj["location"] = e.getLocation();
-
-        QJsonArray volunteerIdsArray;
+        out << e.getId() << "," << e.getTitle() << "," << e.getDate().toString(Qt::ISODate) << "," << e.getLocation();
         for (int vId : e.getVolunteerIds()) {
-            volunteerIdsArray.append(vId);
+            out << "," << vId;
         }
-        obj["volunteerIds"] = volunteerIdsArray;
-        jsonArray.append(obj);
+        out << "\n";
     }
-
-    QJsonDocument doc(jsonArray);
-    file.write(doc.toJson(QJsonDocument::Indented)); // Use Indented for readability
     file.close();
-    qDebug() << "Saved" << m_events.size() << "events to" << m_filename;
+    qDebug() << "Saved " << m_events.size() << " events to " << m_filename;
 }
 
 void JSONEventRepository::add(const Event& event) {
     for (const auto& e : m_events) {
         if (e.getId() == event.getId()) {
-            qWarning() << "Event with ID" << event.getId() << "already exists. Cannot add.";
+            qWarning() << "Event with ID " << event.getId() << " already exists. Cannot add.";
             return;
         }
     }
     m_events.push_back(event);
     save();
-    qDebug() << "Event added:" << event.getTitle();
+    qDebug() << "Event added: " << event.getTitle();
 }
 
 void JSONEventRepository::remove(int id) {
@@ -108,9 +79,9 @@ void JSONEventRepository::remove(int id) {
     if (it != m_events.end()) {
         m_events.erase(it, m_events.end());
         save();
-        qDebug() << "Event with ID" << id << "removed.";
+        qDebug() << "Event with ID " << id << " removed.";
     } else {
-        qWarning() << "Event with ID" << id << "not found for removal.";
+        qWarning() << "Event with ID " << id << " not found for removal.";
     }
 }
 
@@ -120,12 +91,13 @@ void JSONEventRepository::update(const Event& event) {
             e.setTitle(event.getTitle());
             e.setDate(event.getDate());
             e.setLocation(event.getLocation());
+            e = event; // Simple update
             save();
-            qDebug() << "Event with ID" << event.getId() << "updated.";
+            qDebug() << "Event with ID " << event.getId() << " updated.";
             return;
         }
     }
-    qWarning() << "Event with ID" << event.getId() << "not found for update.";
+    qWarning() << "Event with ID " << event.getId() << " not found for update.";
 }
 
 std::vector<Event> JSONEventRepository::getAll() const {

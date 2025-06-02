@@ -3,15 +3,13 @@
 
 #include "../BaseRepository.h"
 #include "../../Model/Event.h"
-#include <QJsonDocument>
-#include <QJsonObject>
-#include <QJsonArray>
 #include <QFile>
+#include <QTextStream>
 #include <QString>
 #include <vector>
 #include <algorithm>
 #include <QDebug>
-#include <QDate> // For QDate operations
+#include <QDate>
 
 class JSONEventRepository : public BaseRepository<Event> {
 public:

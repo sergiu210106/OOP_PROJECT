@@ -9,7 +9,7 @@
 #include "../Repository/CSV/CSVEventRepository.h"
 #include "../Repository/JSON/JSONVolunteerRepository.h"
 #include "../Repository/JSON/JSONEventRepository.h"
-#include "mainwindow.h" // Include your MainWindow header
+#include "mainwindow.h"
 #include <QDir>
 
 int main(int argc, char *argv[]) {
@@ -18,13 +18,17 @@ int main(int argc, char *argv[]) {
 
     qDebug() << "Starting Volunteer Management Application (GUI)...";
 
-    // Define filenames for the CSV repositories
+    // Define filenames for the CSV repositories and create instances of the CSV repositories
     QString volunteerCsvFile = "volunteers.csv";
     QString eventCsvFile = "events.csv";
-
-    // Create instances of the CSV repositories
     auto volunteerRepo = std::make_unique<CSVVolunteerRepository>(volunteerCsvFile);
     auto eventRepo = std::make_unique<CSVEventRepository>(eventCsvFile);
+
+    // QString volunteerJsonFile = "volunteers.json";
+    // QString eventJsonFile = "events.json";
+    // auto volunteerRepo = std::make_unique<JSONVolunteerRepository>(volunteerJsonFile);
+    // auto eventRepo = std::make_unique<JSONEventRepository>(eventJsonFile);
+
 
     // Create the Controller, passing in the repositories
     // The Controller takes ownership of the repository unique_ptr's
